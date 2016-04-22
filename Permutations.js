@@ -44,3 +44,38 @@ var permute = function(nums) {
     return getPerm(initArr, nums, 0);
     
 };
+
+// SOLUTION 2, recursion with an array store used
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+        var len = nums.length,
+        result = [];
+    
+    genPerm(result, 0, len, [], [], nums);
+    
+    return result;
+};
+
+function genPerm(result, index, len, curArr, used, nums) {
+    if (curArr.length === len) {
+        result.push(curArr);
+        return;
+    }
+    
+    var i;
+    
+    for (i = 0; i < len; i++) {
+        if (used[i]) {
+            continue;
+        }
+        
+        curArr.push(nums[i]);
+        used[i] = true;
+        genPerm(result, i + 1, len, curArr.concat(), used.concat(), nums);
+        used[i] = false;
+        curArr.pop();
+    }
+}
