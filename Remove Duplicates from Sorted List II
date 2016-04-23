@@ -1,0 +1,44 @@
+/**
+Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
+
+For example,
+Given 1->2->3->3->4->4->5, return 1->2->5.
+Given 1->1->1->2->3, return 2->3.
+*/
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    var dummy = new ListNode(0),
+        duplicate = null,
+        node;
+    
+    dummy.next = head;
+    node = head;
+    prev = dummy;
+    
+    while (node && node.next) {
+        if (node.val === duplicate || node.val === node.next.val) {
+            duplicate = node.val;
+            prev.next = node.next;
+        } else {
+            prev = prev.next;
+        }
+
+        node = node.next;
+    }
+    
+    if (node && node.val === duplicate) {
+        prev.next = null;
+    }
+    
+    return dummy.next;
+};
