@@ -30,8 +30,7 @@ function getRoot(inorder, postorder, iStart, iEnd, pStart, pEnd) {
     
     var value = postorder[pEnd],
         node = new TreeNode(value),
-        index = inorder.indexOf(value),
-        i;
+        index = inorder.indexOf(value);
         
     node.left = getRoot(inorder, postorder, iStart, index - 1, pStart, pStart + index - iStart - 1);
     node.right = getRoot(inorder, postorder, index + 1, iEnd, pStart + index - iStart, pEnd - 1);
