@@ -65,3 +65,55 @@ var connect = function(root) {
         nextRow = [];
     }
 };
+
+
+// O(1) space solution
+
+/**
+ * Definition for binary tree with next pointer.
+ * function TreeLinkNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = this.next = null;
+ * }
+ */
+
+/**
+ * @param {TreeLinkNode} root
+ * @return {void} Do not return anything, modify tree in-place instead.
+ */
+var connect = function(root) {
+    let nextHead = null;
+    let cur = root;
+    let nextCur = null;
+    
+    while (cur !== null) {
+        
+        while (cur !== null) {
+            if (cur.left) {
+                if (!nextHead) {
+                    nextHead = cur.left;
+                    nextCur = nextHead;
+                } else {
+                    nextCur.next = cur.left;
+                    nextCur = nextCur.next;
+                }
+            }
+            
+            if (cur.right) {
+                if (!nextHead) {
+                    nextHead = cur.right;
+                    nextCur = nextHead;
+                } else {
+                    nextCur.next = cur.right;
+                    nextCur = nextCur.next;
+                }
+            }
+            
+            cur = cur.next;
+        }
+        
+        cur = nextHead;
+        nextHead = null;
+        nextCur = null;
+    }
+};
