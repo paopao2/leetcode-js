@@ -9,6 +9,46 @@ The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In th
 
 
 */
+
+// add new solution 
+/**
+ * @param {number[]} height
+ * @return {number}
+ *
+ * Search from left to right and maintain a max height of left and right separately, which is like a one-side wall of partial container. Fix the higher one and flow water from the lower part. For example, if current height of left is lower, we fill water in the left bin. Until left meets right, we filled the whole container.
+ */
+var trap = function(height) {
+    var len = height.length,
+        leftMax = 0,
+        rightMax = 0,
+        left = 0,
+        right = len - 1,
+        sum = 0;
+    
+    while (left <= right) {
+        if (height[left] <= height[right]) {
+            if (height[left] > leftMax) {
+                leftMax = height[left];
+            } else {
+                sum += leftMax - height[left];
+            }
+            
+            left++;
+        } else {
+            if (height[right] > rightMax) {
+                rightMax = height[right];
+            } else {
+                sum += rightMax - height[right];
+            }
+            
+            right--;
+        }
+    }
+    
+    return sum;
+};
+
+
 /**
  * @param {number[]} height
  * @return {number}
