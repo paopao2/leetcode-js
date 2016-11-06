@@ -18,16 +18,18 @@
 var countBits = function(num) {
     var result = [],
         pow = 1,
+        copyOfPow = 1,
         i;
         
     result[0] = 0;
     
-    for (i = 1; i < num; i++) {
+    for (i = 1; i <= num; i++) {
         if (i === pow) {
             result[i] = 1;
+            copyOfPow = pow;
             pow *= 2;
         } else {
-            result[i] = result[pow] + result[i - pow];
+            result[i] = result[copyOfPow] + result[i - copyOfPow];
         }
     }
     
