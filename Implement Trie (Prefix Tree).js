@@ -11,30 +11,27 @@ You may assume that all inputs are consist of lowercase letters a-z.
  
  // MEMORY LIMIT EXCEEDED
 var TrieNode = function() {
-    var isEnd,
-        links = {};
-        
-    return {
-        containsKey: function(n) {
-            return links[n] !== undefined;
-        },
-        get: function(ch) {
-            return links[ch];
-        },
-        put: function(ch, node) {
-            links[ch] = node;
-        },
-        setEnd: function() {
-            isEnd = true;
-        },
-        isEnd: function() {
-            return isEnd;
-        }
-    };
+    this.end = false;
+    this.links = {};
+    this.containsKey = function(n) {
+         return this.links[n] !== undefined;
+     }
+    this.get = function(ch) {
+         return this.links[ch];
+     }
+    this.put = function(ch, node) {
+         this.links[ch] = node;
+     }
+    this.setEnd = function() {
+        this.end = true;
+     }
+     this.isEnd = function() {
+        return this.end;
+     }
 };
 
 var Trie = function() {
-    this.root = TrieNode();
+    this.root = new TrieNode();
 };
 
 /**
@@ -52,7 +49,7 @@ Trie.prototype.insert = function(word) {
         ch = word.charAt(i);
         
         if (!node.containsKey(ch)) {
-            node.put(ch, TrieNode());
+            node.put(ch, new TrieNode());
         }
         
         node = node.get(ch);
@@ -68,8 +65,11 @@ Trie.prototype.insert = function(word) {
  */
 Trie.prototype.search = function(word) {
     var node = this.searchPrefix(word);
-    
-    return node && node.isEnd();
+    if(!node){
+      return false;
+    }else{
+      return node.isEnd()
+    }
 };
 
 /**
